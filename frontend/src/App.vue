@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
-    <main>
+  <div id="app" class="font-sans">
+    <div>
       <Suspense>
         <router-view />
       </Suspense>
-    </main>
+    </div>
   </div>
 </template>
