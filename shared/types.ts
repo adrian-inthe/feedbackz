@@ -2,6 +2,7 @@ export interface CreateFeedbackDto {
   name: string;
   email: string;
   type: "Bug" | "Suggestion";
+  title: string;
   message: string;
 }
 

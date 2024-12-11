@@ -19,6 +19,9 @@ export class Feedback extends Document implements FeedbackInterface {
   @Prop({ required: true })
   message: string;
 
+  @Prop({ required: true })
+  title: string;
+
   @Prop({ required: false })
   createdAt: string;
 }

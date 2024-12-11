@@ -10,6 +10,7 @@ export const feedbackCreationSchema: Yup.Schema<CreateFeedbackDto> = Yup.object(
     type: Yup.mixed<"Bug" | "Suggestion">()
       .oneOf(["Bug", "Suggestion"], "Please select a type")
       .required("Please select a type"),
+    title: Yup.string().required("Please enter a title"),
     message: Yup.string().required("Please enter a message"),
   },
 );

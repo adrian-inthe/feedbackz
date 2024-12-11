@@ -31,6 +31,14 @@ export class CreateFeedbackDto implements SharedDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({
+    description: 'The title of the feedback',
+    type: String,
+  })
+  title: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
     description: 'The content of the feedback',
     type: String,
   })

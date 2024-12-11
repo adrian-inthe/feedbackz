@@ -35,6 +35,7 @@ onMounted(async () => {
         <div>Type: {{ feedback.type }}</div>
         <div>Name: {{ feedback.name }}</div>
         <div>Email: {{ feedback.email }}</div>
+        <div>Title: {{ feedback.title }}</div>
         <p>Message: {{ feedback.message }}</p>
       </div>
     </div>

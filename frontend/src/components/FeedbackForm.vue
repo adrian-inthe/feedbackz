@@ -9,12 +9,14 @@ const feedbackStore = useFeedbackStore();
 const name = ref<string>("");
 const email = ref<string>("");
 const type = ref<"" | "Bug" | "Suggestion">("");
+const title = ref<string>("");
 const message = ref<string>("");
 
 const fieldErrors = ref({
   name: "",
   email: "",
   type: "",
+  title: "",
   message: "",
 });
 const formError = ref("");
@@ -32,6 +34,7 @@ async function submitForm() {
         name: name.value,
         email: email.value,
         type: type.value,
+        title: title.value,
         message: message.value,
       },
       { abortEarly: false },
@@ -55,12 +58,13 @@ function resetForm() {
   name.value = "";
   email.value = "";
   type.value = "";
+  title.value = "";
   message.value = "";
 }
 
 function resetErrors() {
   formError.value = "";
-  fieldErrors.value = { name: "", email: "", type: "", message: "" };
+  fieldErrors.value = { name: "", email: "", type: "", title: "", message: "" };
 }
 
 const closeModal = inject<() => void>("closeModal");
@@ -108,6 +112,18 @@ async function sendFeedback() {
         <option value="Suggestion">Suggestion</option>
       </select>
       <p v-if="fieldErrors.type" class="error">{{ fieldErrors.type }}</p>
+    </div>
+
+    <div>
+      <label for="title">Title</label>
+      <input
+        id="title"
+        v-model="title"
+        :class="{ 'border-red-500': fieldErrors.title }"
+        class="!w-full"
+        type="text"
+      />
+      <p v-if="fieldErrors.title" class="error">{{ fieldErrors.title }}</p>
     </div>
 
     <div>
