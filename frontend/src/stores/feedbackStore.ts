@@ -8,7 +8,6 @@ export const useFeedbackStore = defineStore("feedback", {
     feedbackList: [] as Feedback[],
     listError: null as string | null,
     loadingList: false,
-    addError: null as string | null,
   }),
 
   actions: {
@@ -26,13 +25,12 @@ export const useFeedbackStore = defineStore("feedback", {
     },
 
     async addFeedback(newFeedback: CreateFeedbackDto) {
-      this.addError = null;
       try {
         const addedFeedback = await submitFeedback(newFeedback);
         this.feedbackList.push(addedFeedback);
       } catch (error) {
         logError("addFeedback", error);
-        this.addError = "Failed to submit feedback. Please try again.";
+        throw new Error("Failed to submit feedback. Please try again.");
       }
     },
   },
