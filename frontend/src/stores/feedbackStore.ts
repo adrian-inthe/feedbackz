@@ -6,19 +6,17 @@ import { CreateFeedbackDto, Feedback } from "../../../shared/types.ts";
 export const useFeedbackStore = defineStore("feedback", {
   state: () => ({
     feedbackList: [] as Feedback[],
-    listError: null as string | null,
     loadingList: false,
   }),
 
   actions: {
     async getFeedbackList() {
       this.loadingList = true;
-      this.listError = null;
       try {
         this.feedbackList = await fetchFeedbackList();
       } catch (error) {
         logError("loadFeedback", error);
-        this.listError = "Failed to load feedback. Please try again.";
+        throw new Error("Failed to load feedback. Please try again.");
       } finally {
         this.loadingList = false;
       }
