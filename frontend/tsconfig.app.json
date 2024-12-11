@@ -30,6 +30,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "src/**/*.spec.ts"
+    "src/**/*.spec.ts",
+    "../shared/**/*.ts"
   ]
 }
