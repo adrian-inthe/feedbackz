@@ -7,6 +7,10 @@ export async function fetchFeedbackList(): Promise<Feedback[]> {
     headers: { accept: "application/json" },
   });
 
+  if (response.status === 404) {
+    return [];
+  }
+
   if (!response.ok) {
     throw new Error("Failed to fetch feedback");
   }
@@ -26,8 +30,8 @@ export async function submitFeedback(
     body: JSON.stringify(feedback),
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to submit feedback");
+  if (response.status === 400 || !response.ok) {
+    throw new Error("Failed to submit feedback"); // More advanced error handling can be implemented here in future iterations.
   }
 
   return await response.json(); // I assume I can trust my backend service (no need to validate the schemas)

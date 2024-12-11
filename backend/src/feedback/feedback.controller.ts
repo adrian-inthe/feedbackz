@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Post,
   UsePipes,
   ValidationPipe,
@@ -24,6 +25,10 @@ export class FeedbackController {
 
   @Get()
   async getAllFeedback(): Promise<Feedback[]> {
-    return this.feedbackService.getAllFeedback();
+    const feedbacks = await this.feedbackService.getFeedbackList();
+    if (!feedbacks || feedbacks.length === 0) {
+      throw new NotFoundException('No feedbacks found');
+    }
+    return feedbacks;
   }
 }
