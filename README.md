@@ -104,7 +104,7 @@ Open a terminal and navigate to the project's `backend` directory.
     # the app will be available on http://localhost:3000
 
     # To read the API documentation:
-    # go to http://localhost:300/api
+    # go to http://localhost:3000/api
 
 #### Frontend
 
