@@ -23,7 +23,7 @@ const showFormModal = ref(false);
     </BaseHeader>
     <div class="flex-1 flex">
       <div
-        class="w-72 lg:w-96 bg-gray-50 overflow-y-auto p-1 border-r border-slate-200"
+        class="w-80 lg:w-96 bg-gray-50 overflow-y-auto border-r border-slate-200"
       >
         <FeedbackList />
       </div>
