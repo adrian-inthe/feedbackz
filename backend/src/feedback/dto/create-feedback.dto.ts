@@ -1,4 +1,10 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 import { CreateFeedbackDto as SharedDto } from '../../../../shared/types';
 import { ApiProperty } from '@nestjs/swagger';
 
