@@ -19,8 +19,10 @@ export const useFeedbackStore = defineStore("feedback", {
           this.selectedFeedback = this.feedbackList[0];
         }
       } catch (error) {
-        logError("loadFeedback", error);
-        throw new Error("Failed to load feedback. Please try again.");
+        logError("getFeedbackList", error);
+        throw new Error(
+          "Failed to load feedback list, please try again later.",
+        );
       } finally {
         this.loadingList = false;
       }
@@ -32,7 +34,7 @@ export const useFeedbackStore = defineStore("feedback", {
         this.feedbackList.push(addedFeedback);
       } catch (error) {
         logError("addFeedback", error);
-        throw new Error("Failed to submit feedback. Please try again.");
+        throw new Error("Failed to add feedback, please try again later.");
       }
     },
 

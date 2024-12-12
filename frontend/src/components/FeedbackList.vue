@@ -19,7 +19,7 @@ onMounted(async () => {
 
 <template>
   <p v-if="feedbackStore.loadingList">Loading…</p>
-  <p v-if="listError" class="text-red-500">
+  <p v-if="listError" class="text-red-500 text-center m-5">
     {{ listError }}
   </p>
   <p v-else-if="!feedbackStore.feedbackList.length" class="text-center m-5">
