@@ -21,7 +21,7 @@ const feedback = computed(() => feedbackStore.selectedFeedback);
 
     <div class="flex flex-col justify-between flex-grow">
       <div class="font-medium text-xs text-slate-500">
-        {{ formatRelativeTime(new Date(feedback.createdAt)) }}
+        {{ formatRelativeTime(new Date(feedback.createdAt), "long") }}
       </div>
       <div class="my-1 font-medium text-2xl text-slate-800">
         {{ feedback.title }}
