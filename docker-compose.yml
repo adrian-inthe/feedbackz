@@ -5,6 +5,8 @@ services:
       dockerfile: ./backend/Dockerfile
     ports:
       - '3000:3000'
+    environment:
+      - MONGO_URI=mongodb://mongo-compose:27017/feedback-app
     depends_on:
       - mongo
 
@@ -17,7 +19,7 @@ services:
 
   mongo:
     image: mongo:latest
-    container_name: mongo
+    container_name: mongo-compose
     ports:
       - '27017:27017'
     volumes:

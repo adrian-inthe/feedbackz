@@ -90,6 +90,10 @@ Open your browser and go to [http://localhost:8080](http://localhost:8080)
 
 #### Backend
 
+Run a MongoDB docker image to store the data.
+
+    docker run --name mongo-local -d -p 27017:27017 -v mongodb_data:/data/db mongo:latest
+
 Open a terminal and navigate to the project's `backend` directory.
 
     cd /feedbackz/backend
