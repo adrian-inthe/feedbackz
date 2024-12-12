@@ -89,6 +89,7 @@ async function sendFeedback() {
         id="name"
         v-model="name"
         :class="{ 'border-red-500': fieldErrors.name }"
+        maxlength="50"
         type="text"
       />
       <p v-if="fieldErrors.name" class="error">{{ fieldErrors.name }}</p>
@@ -100,6 +101,7 @@ async function sendFeedback() {
         id="email"
         v-model="email"
         :class="{ 'border-red-500': fieldErrors.email }"
+        maxlength="320"
         type="email"
       />
       <p v-if="fieldErrors.email" class="error">{{ fieldErrors.email }}</p>
@@ -122,6 +124,7 @@ async function sendFeedback() {
         v-model="title"
         :class="{ 'border-red-500': fieldErrors.title }"
         class="!w-full"
+        maxlength="100"
         type="text"
       />
       <p v-if="fieldErrors.title" class="error">{{ fieldErrors.title }}</p>
@@ -133,6 +136,7 @@ async function sendFeedback() {
         id="message"
         v-model="message"
         :class="{ 'border-red-500': fieldErrors.message }"
+        maxlength="1000"
         rows="4"
       />
       <p v-if="fieldErrors.message" class="error">{{ fieldErrors.message }}</p>
