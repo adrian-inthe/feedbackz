@@ -4,19 +4,45 @@ import { useFeedbackStore } from "../stores/feedbackStore";
 import FeedbackListItem from "@/components/FeedbackListItem.vue";
 import { CreateFeedbackDto } from "../../../shared/types";
 import FeedbackListFilter from "@/components/FeedbackListFilter.vue";
+import FeedbackListSort from "@/components/FeedbackListSort.vue";
 
 const feedbackStore = useFeedbackStore();
 const listError = ref("");
 const filterByType = ref<"" | CreateFeedbackDto["type"]>("");
+const sortBy = ref<"date.asc" | "date.desc" | "name.asc" | "name.desc">(
+  "date.asc",
+);
 provide("filterByType", filterByType);
+provide("sortBy", sortBy);
 
 const feedbackList = computed(() => {
-  if (filterByType.value) {
-    return feedbackStore.feedbackList.filter(
-      (feedback) => feedback.type === filterByType.value,
-    );
+  let filteredList = filterByType.value
+    ? feedbackStore.feedbackList.filter(
+        (feedback) => feedback.type === filterByType.value,
+      )
+    : feedbackStore.feedbackList;
+
+  switch (sortBy.value) {
+    case "date.asc":
+      filteredList.sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      );
+      break;
+    case "date.desc":
+      filteredList.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+      break;
+    case "name.asc":
+      filteredList.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case "name.desc":
+      filteredList.sort((a, b) => b.name.localeCompare(a.name));
+      break;
   }
-  return feedbackStore.feedbackList;
+  return filteredList;
 });
 
 onMounted(async () => {
@@ -35,6 +61,7 @@ onMounted(async () => {
     class="h-12 border-b border-b-slate-200 w-full flex justify-between items-center px-4"
   >
     <div><FeedbackListFilter /></div>
+    <div><FeedbackListSort /></div>
   </div>
   <div class="p-1">
     <p v-if="feedbackStore.loadingList">Loading…</p>
