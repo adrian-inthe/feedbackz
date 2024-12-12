@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Feedback } from './schemas/feedback.schema';
@@ -19,6 +23,7 @@ export class FeedbackService {
       const feedback = new this.feedbackModel({
         _id: new Types.ObjectId(),
         ...createFeedbackDto,
+        createdAt: new Date(),
       });
       return await feedback.save();
     } catch (error) {

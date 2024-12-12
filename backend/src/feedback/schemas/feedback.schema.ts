@@ -22,8 +22,8 @@ export class Feedback extends Document implements FeedbackInterface {
   @Prop({ required: true })
   title: string;
 
-  @Prop({ required: false })
-  createdAt: string;
+  @Prop({ required: false, type: Date })
+  createdAt: Date;
 }
 
 export const FeedbackSchema = SchemaFactory.createForClass(Feedback);

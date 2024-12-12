@@ -8,5 +8,5 @@ export interface CreateFeedbackDto {
 
 export interface Feedback extends CreateFeedbackDto {
   _id: string;
-  createdAt: string;
+  createdAt: Date;
 }
