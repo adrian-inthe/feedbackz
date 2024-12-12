@@ -22,9 +22,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "types": [
-      "vitest/globals"
-    ]
+    "types": [],
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
