@@ -2,13 +2,23 @@ import { CreateFeedbackDto, Feedback } from "../../../shared/types.ts";
 
 const API_URL = "http://localhost:3000";
 
-export async function fetchFeedbackList(): Promise<Feedback[]> {
-  const response = await fetch(`${API_URL}/feedback`, {
-    headers: { accept: "application/json" },
-  });
+export async function fetchFeedbackList({
+  page,
+  limit,
+  filterByType,
+  sortBy,
+}: PaginatedRequest): Promise<PaginatedResponse> {
+  const response = await fetch(
+    `${API_URL}/feedback?page=${page}&limit=${limit}&filterByType=${filterByType}&sortBy=${sortBy}`,
+    {
+      headers: {
+        accept: "application/json",
+      },
+    },
+  );
 
   if (response.status === 404) {
-    return [];
+    return { page, limit, totalCount: 0, data: [] };
   }
 
   if (!response.ok) {

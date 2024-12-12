@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-import { inject } from "vue";
+import { useFeedbackStore } from "@/stores/feedbackStore.ts";
+import { computed } from "vue";
 
-const filterByType = inject("filterByType");
-const emit = defineEmits(["update:filterByType"]);
+const feedbackStore = useFeedbackStore();
+const filterByType = computed({
+  get: () => feedbackStore.filterByType,
+  set: (value: SortBy) => feedbackStore.setFilterByType(value),
+});
 </script>
 
 <template>
@@ -11,7 +15,6 @@ const emit = defineEmits(["update:filterByType"]);
     id="filter"
     v-model="filterByType"
     class="ml-2 bg-slate-200 rounded w-24"
-    @change="emit('update:filterByType', filterByType)"
   >
     <option disabled selected value="">Type</option>
     <option value="">All</option>

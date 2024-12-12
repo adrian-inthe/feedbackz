@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Feedback } from './schemas/feedback.schema';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
+import { PaginatedResponse } from './dto/paginated-response.dto';
 
 @Injectable()
 export class FeedbackService {
@@ -32,9 +33,45 @@ export class FeedbackService {
     }
   }
 
-  async getFeedbackList(): Promise<Feedback[]> {
+  async getFeedbackList(
+    page: number,
+    limit: number,
+    filterByType?: string,
+    sortBy: string = 'createdAt.desc',
+  ): Promise<PaginatedResponse> {
     try {
-      return await this.feedbackModel.find().sort({ createdAt: 1 }).exec();
+      const query: any = {};
+      if (filterByType) {
+        query.type = filterByType;
+      }
+
+      const totalCount = await this.feedbackModel.countDocuments(query);
+
+      // Define the sort based on the `sortBy` parameter
+      const sort: any = {};
+      if (sortBy === 'createdAt.asc') {
+        sort.createdAt = 1;
+      } else if (sortBy === 'createdAt.desc') {
+        sort.createdAt = -1;
+      } else if (sortBy === 'name.asc') {
+        sort.name = 1;
+      } else if (sortBy === 'name.desc') {
+        sort.name = -1;
+      }
+
+      const feedbacks = await this.feedbackModel
+        .find(query) // Apply the filter query here
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .sort(sort) // Apply sorting here
+        .exec();
+
+      return {
+        page,
+        limit,
+        totalCount,
+        data: feedbacks,
+      };
     } catch (error) {
       this.logger.error('Error retrieving feedback list:', error);
       throw new InternalServerErrorException(

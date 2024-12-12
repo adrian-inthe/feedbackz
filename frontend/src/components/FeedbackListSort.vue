@@ -1,20 +1,19 @@
 <script lang="ts" setup>
-import { inject } from "vue";
+import { useFeedbackStore } from "@/stores/feedbackStore.ts";
+import { computed } from "vue";
 
-const sortBy = inject("sortBy");
-const emit = defineEmits(["update:sortBy"]);
+const feedbackStore = useFeedbackStore();
+const sortBy = computed({
+  get: () => feedbackStore.sortBy,
+  set: (value: SortBy) => feedbackStore.setSortBy(value),
+});
 </script>
 
 <template>
   <label class="text-medium text-xs" for="sort">Sort</label>
-  <select
-    id="sort"
-    v-model="sortBy"
-    class="ml-2 bg-slate-200 rounded"
-    @change="emit('update:sortBy', sortBy)"
-  >
-    <option value="date.asc">Date (Asc)</option>
-    <option value="date.desc">Date (Desc)</option>
+  <select id="sort" v-model="sortBy" class="ml-2 bg-slate-200 rounded">
+    <option value="createdAt.asc">Date (Asc)</option>
+    <option value="createdAt.desc">Date (Desc)</option>
     <option value="name.asc">Name (Asc)</option>
     <option value="name.desc">Name (Desc)</option>
   </select>
