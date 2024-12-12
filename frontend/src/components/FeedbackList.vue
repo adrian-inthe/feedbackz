@@ -22,7 +22,9 @@ onMounted(async () => {
   <p v-if="listError" class="text-red-500">
     {{ listError }}
   </p>
-  <p v-else-if="!feedbackStore.feedbackList.length">No feedback yet!</p>
+  <p v-else-if="!feedbackStore.feedbackList.length" class="text-center m-5">
+    No feedbacks found, please create a new one.
+  </p>
 
   <div v-if="!feedbackStore.loadingList && !listError">
     <div
