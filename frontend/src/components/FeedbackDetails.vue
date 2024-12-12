@@ -29,7 +29,9 @@ const feedback = computed(() => feedbackStore.selectedFeedback);
       <div class="font-medium text-xs text-slate-500">
         {{ feedback.name }} ({{ feedback.email }})
       </div>
-      <p class="mt-6 font-normal text-base">{{ feedback.message }}</p>
+      <p class="mt-6 font-normal text-base whitespace-pre-line">
+        {{ feedback.message }}
+      </p>
     </div>
   </div>
 </template>
