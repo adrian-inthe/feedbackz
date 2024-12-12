@@ -45,8 +45,17 @@ watch([feedbackStore.filterByType, feedbackStore.sortBy], async () => {
     </div>
 
     <div class="flex-grow p-1 overflow-auto">
-      <p v-if="feedbackStore.loadingList">Loading…</p>
-      <p v-if="listError" class="text-red-500 text-center m-5">
+      <div
+        v-if="feedbackStore.loadingList"
+        class="flex justify-center items-center mt-10"
+      >
+        <img
+          alt="Loader"
+          class="h-10 w-auto animate-bounce"
+          src="@/assets/logo.png"
+        />
+      </div>
+      <p v-else-if="listError" class="text-red-500 text-center m-5">
         {{ listError }}
       </p>
       <p v-else-if="!feedbackStore.feedbackList.length" class="text-center m-5">

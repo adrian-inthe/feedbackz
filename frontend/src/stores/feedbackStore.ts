@@ -19,12 +19,18 @@ export const useFeedbackStore = defineStore("feedback", {
     async getFeedbackList() {
       this.loadingList = true;
       try {
-        const response = await fetchFeedbackList({
+        const fetchDataPromise = fetchFeedbackList({
           page: this.page,
           limit: this.limit,
           filterByType: this.filterByType,
           sortBy: this.sortBy,
         });
+
+        const delayPromise = new Promise((resolve) =>
+          setTimeout(resolve, 1000),
+        );
+
+        const [response] = await Promise.all([fetchDataPromise, delayPromise]);
 
         this.feedbackList = response.data;
         this.totalCount = response.totalCount;
