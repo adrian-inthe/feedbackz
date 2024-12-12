@@ -9,7 +9,7 @@ const feedback = computed(() => feedbackStore.selectedFeedback);
 </script>
 
 <template>
-  <div class="flex">
+  <div v-if="feedback" class="flex">
     <div class="flex justify-center items-start mr-2 mt-6 w-6">
       <img
         v-if="feedback.type"
