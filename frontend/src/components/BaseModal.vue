@@ -1,3 +1,22 @@
+<script lang="ts" setup>
+import { provide } from "vue";
+
+defineProps({
+  show: {
+    type: Boolean,
+    required: true,
+  },
+});
+
+const emit = defineEmits(["update:show"]);
+
+function close() {
+  emit("update:show", false);
+}
+
+provide("closeModal", close);
+</script>
+
 <template>
   <div
     v-if="show"
@@ -18,22 +37,3 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { provide } from "vue";
-
-defineProps({
-  show: {
-    type: Boolean,
-    required: true,
-  },
-});
-
-const emit = defineEmits(["update:show"]);
-
-function close() {
-  emit("update:show", false);
-}
-
-provide("closeModal", close);
-</script>

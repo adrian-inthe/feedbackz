@@ -7,6 +7,7 @@ export const useFeedbackStore = defineStore("feedback", {
   state: () => ({
     feedbackList: [] as Feedback[],
     loadingList: false,
+    selectedFeedback: null as Feedback | null,
   }),
 
   actions: {
@@ -14,6 +15,9 @@ export const useFeedbackStore = defineStore("feedback", {
       this.loadingList = true;
       try {
         this.feedbackList = await fetchFeedbackList();
+        if (this.feedbackList.length) {
+          this.selectedFeedback = this.feedbackList[0];
+        }
       } catch (error) {
         logError("loadFeedback", error);
         throw new Error("Failed to load feedback. Please try again.");
@@ -30,6 +34,10 @@ export const useFeedbackStore = defineStore("feedback", {
         logError("addFeedback", error);
         throw new Error("Failed to submit feedback. Please try again.");
       }
+    },
+
+    selectFeedback(feedback: Feedback) {
+      this.selectedFeedback = feedback;
     },
   },
 });

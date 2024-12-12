@@ -3,6 +3,7 @@ import { inject, onMounted, ref } from "vue";
 import { useFeedbackStore } from "../stores/feedbackStore";
 import { feedbackCreationSchema } from "../validation/FeedbackCreationSchema.ts";
 import { ValidationError } from "yup";
+import BaseButton from "./BaseButton.vue";
 
 const feedbackStore = useFeedbackStore();
 
@@ -140,21 +141,13 @@ async function sendFeedback() {
       {{ formError }}
     </p>
     <div class="flex justify-end space-x-4 mt-5">
-      <button
-        class="bg-slate-200 text-slate-800 font-medium text-sm"
-        type="button"
-        @click="closeModal"
-      >
-        Cancel
-      </button>
-      <button class="bg-emerald-400 text-white font-bold" @click="sendFeedback">
-        Send feedback
-      </button>
+      <BaseButton label="Cancel" type="secondary" @click="closeModal" />
+      <BaseButton label="Send feedback" type="primary" @click="sendFeedback" />
     </div>
   </div>
 </template>
 
-<style scoped>
+<style lang="postcss" scoped>
 label {
   @apply mt-5 font-medium text-base block;
 }
@@ -176,10 +169,6 @@ option {
 
 textarea {
   @apply w-full h-44 p-2;
-}
-
-button {
-  @apply text-sm px-4 py-2 rounded;
 }
 
 .error {
