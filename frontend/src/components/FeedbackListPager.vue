@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useFeedbackStore } from "@/stores/feedbackStore.ts";
+import BaseButton from "@/components/BaseButton.vue";
 
 const feedbackStore = useFeedbackStore();
 
@@ -17,19 +18,17 @@ async function goToPage(newPage: number) {
 </script>
 
 <template>
-  <button
-    :disabled="page <= 1"
-    class="bg-blue-500 text-white p-2 rounded"
+  <BaseButton
+    :type="page <= 1 ? 'disabled' : 'primary'"
+    label="<"
     @click="goToPage(page - 1)"
+  />
+  <span class="text-sm text-slate-500 mx-2"
+    >{{ page }} of {{ totalPages }}</span
   >
-    Previous
-  </button>
-  <span class="mx-2">Page {{ page }} of {{ totalPages }}</span>
-  <button
-    :disabled="page >= totalPages"
-    class="bg-blue-500 text-white p-2 rounded"
+  <BaseButton
+    :type="page >= totalPages ? 'disabled' : 'primary'"
+    label=">"
     @click="goToPage(page + 1)"
-  >
-    Next
-  </button>
+  />
 </template>
