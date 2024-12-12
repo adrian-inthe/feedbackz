@@ -11,7 +11,7 @@ export const useFeedbackStore = defineStore("feedback", {
     filterByType: "" as FilterByType,
     sortBy: "createdAt.desc" as SortBy,
     page: 1 as number,
-    limit: 2 as number,
+    limit: 10 as number,
     totalCount: 0 as number,
   }),
 

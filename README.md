@@ -117,6 +117,8 @@ Open a terminal and navigate to the project's `frontend` directory.
     npm run dev 
     # then open http://localhost:5173
 
+Tip: to easily test the pagination system, change the limit value (e.g. limit: 2) in the feedbackStore.
+
 ## Thoughts on the Development Next Steps
 
 Here are some additional considerations for the first iterative improvements to the current solution:
