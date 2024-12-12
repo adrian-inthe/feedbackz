@@ -5,6 +5,7 @@ import FeedbackListItem from "@/components/FeedbackListItem.vue";
 import { CreateFeedbackDto } from "../../../shared/types";
 import FeedbackListFilter from "@/components/FeedbackListFilter.vue";
 import FeedbackListSort from "@/components/FeedbackListSort.vue";
+import { filterAndSort } from "@/utils/list.ts";
 
 const feedbackStore = useFeedbackStore();
 const listError = ref("");
@@ -15,35 +16,9 @@ const sortBy = ref<"date.asc" | "date.desc" | "name.asc" | "name.desc">(
 provide("filterByType", filterByType);
 provide("sortBy", sortBy);
 
-const feedbackList = computed(() => {
-  let filteredList = filterByType.value
-    ? feedbackStore.feedbackList.filter(
-        (feedback) => feedback.type === filterByType.value,
-      )
-    : feedbackStore.feedbackList;
-
-  switch (sortBy.value) {
-    case "date.asc":
-      filteredList.sort(
-        (a, b) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-      );
-      break;
-    case "date.desc":
-      filteredList.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-      );
-      break;
-    case "name.asc":
-      filteredList.sort((a, b) => a.name.localeCompare(b.name));
-      break;
-    case "name.desc":
-      filteredList.sort((a, b) => b.name.localeCompare(a.name));
-      break;
-  }
-  return filteredList;
-});
+const feedbackList = computed(() =>
+  filterAndSort(feedbackStore.feedbackList, filterByType.value, sortBy.value),
+);
 
 onMounted(async () => {
   try {
@@ -60,8 +35,12 @@ onMounted(async () => {
   <div
     class="h-12 border-b border-b-slate-200 w-full flex justify-between items-center px-4"
   >
-    <div><FeedbackListFilter /></div>
-    <div><FeedbackListSort /></div>
+    <div>
+      <FeedbackListFilter />
+    </div>
+    <div>
+      <FeedbackListSort />
+    </div>
   </div>
   <div class="p-1">
     <p v-if="feedbackStore.loadingList">Loading…</p>
