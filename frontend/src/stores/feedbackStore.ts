@@ -32,6 +32,7 @@ export const useFeedbackStore = defineStore("feedback", {
       try {
         const addedFeedback = await submitFeedback(newFeedback);
         this.feedbackList.push(addedFeedback);
+        this.selectedFeedback = addedFeedback;
       } catch (error) {
         logError("addFeedback", error);
         throw new Error("Failed to add feedback, please try again later.");
